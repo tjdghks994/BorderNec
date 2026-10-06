@@ -1,0 +1,476 @@
+{
+  "description": "Manually authored golden traces. Tests project repeated occurrences onto an idempotent jurisdictional-observation set; the experimental runtime never reads this file.",
+  "event_key": [
+    "data_atom",
+    "data_subject",
+    "exporter_entity",
+    "importer_entity",
+    "importer_entity_country",
+    "processing_country",
+    "transfer_mode",
+    "purpose"
+  ],
+  "tasks": {
+    "B01_public_foreign_weather": {
+      "plans": {
+        "foreign": ["call_us_weather"],
+        "domestic": ["call_kr_weather"]
+      },
+      "events": {
+        "foreign": [],
+        "domestic": []
+      },
+      "task_success": {"foreign": true, "domestic": true},
+      "relations": [
+        {"left": "foreign", "right": "domestic", "label": "equal"}
+      ],
+      "frontier": ["foreign", "domestic"]
+    },
+    "B02_hotel_search_oversharing": {
+      "plans": {
+        "oversharing": ["search_with_identity"],
+        "minimal": ["search_minimal"],
+        "wrong_side_effect": ["book_instead_of_search"]
+      },
+      "events": {
+        "oversharing": [
+          {
+            "data_atom": "name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_search_co",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_search",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_search_co",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_search",
+            "count": 1
+          }
+        ],
+        "minimal": [],
+        "wrong_side_effect": [
+          {
+            "data_atom": "name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_booking_co",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_booking_co",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_booking",
+            "count": 1
+          }
+        ]
+      },
+      "task_success": {
+        "oversharing": true,
+        "minimal": true,
+        "wrong_side_effect": false
+      },
+      "relations": [
+        {"left": "minimal", "right": "oversharing", "label": "less"}
+      ],
+      "frontier": ["minimal"]
+    },
+    "B03_foreign_remote_retrieval": {
+      "plans": {
+        "remote": ["us_remote_match"],
+        "local": ["kr_read_email", "kr_match_email"]
+      },
+      "events": {
+        "remote": [
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "us_match_inc",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "retrieval",
+            "purpose": "contact_verification",
+            "count": 1
+          }
+        ],
+        "local": []
+      },
+      "task_success": {"remote": true, "local": true},
+      "relations": [
+        {"left": "local", "right": "remote", "label": "less"}
+      ],
+      "frontier": ["local"]
+    },
+    "B04_delegated_medical_translation": {
+      "plans": {
+        "foreign": ["translate_in_us"],
+        "domestic": ["translate_in_kr"]
+      },
+      "events": {
+        "foreign": [
+          {
+            "data_atom": "medical_note",
+            "data_subject": "patient_1",
+            "exporter_entity": "kr_clinic_controller",
+            "importer_entity": "us_translate_inc",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "delegated_processing",
+            "purpose": "medical_translation",
+            "count": 1
+          }
+        ],
+        "domestic": []
+      },
+      "task_success": {"foreign": true, "domestic": true},
+      "relations": [
+        {"left": "domestic", "right": "foreign", "label": "less"}
+      ],
+      "frontier": ["domestic"]
+    },
+    "B05_foreign_receipt_storage": {
+      "plans": {
+        "foreign": ["store_in_sg"],
+        "domestic": ["store_in_kr"]
+      },
+      "events": {
+        "foreign": [
+          {
+            "data_atom": "purchase_receipt",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_retail_controller",
+            "importer_entity": "sg_vault_ltd",
+            "importer_entity_country": "SG",
+            "processing_country": "SG",
+            "transfer_mode": "storage",
+            "purpose": "receipt_archival",
+            "count": 1
+          }
+        ],
+        "domestic": []
+      },
+      "task_success": {"foreign": true, "domestic": true},
+      "relations": [
+        {"left": "domestic", "right": "foreign", "label": "less"}
+      ],
+      "frontier": ["domestic"]
+    },
+    "B06_necessary_japanese_booking": {
+      "plans": {
+        "necessary": ["book_with_jp_provider"],
+        "false_counterplan": ["record_tentative_calendar_only"]
+      },
+      "events": {
+        "necessary": [
+          {
+            "data_atom": "legal_name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_provider",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel_provider",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "hotel_booking",
+            "count": 1
+          }
+        ],
+        "false_counterplan": []
+      },
+      "task_success": {"necessary": true, "false_counterplan": false},
+      "relations": [],
+      "frontier": ["necessary"]
+    },
+    "B07_repeated_loyalty_transfer": {
+      "plans": {
+        "single": ["atomic_loyalty_update"],
+        "repeated": ["prepare_loyalty_update", "commit_loyalty_update"]
+      },
+      "events": {
+        "single": [
+          {
+            "data_atom": "loyalty_id",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_airline",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "loyalty_update",
+            "count": 1
+          }
+        ],
+        "repeated": [
+          {
+            "data_atom": "loyalty_id",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_airline",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "loyalty_update",
+            "count": 1
+          }
+        ]
+      },
+      "task_success": {"single": true, "repeated": true},
+      "relations": [
+        {"left": "single", "right": "repeated", "label": "equal"}
+      ],
+      "frontier": ["single", "repeated"]
+    },
+    "B08_different_foreign_recipients": {
+      "plans": {
+        "japan": ["verify_in_jp"],
+        "us": ["verify_in_us"]
+      },
+      "events": {
+        "japan": [
+          {
+            "data_atom": "email",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_verify_co",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "contact_verification",
+            "count": 1
+          }
+        ],
+        "us": [
+          {
+            "data_atom": "email",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "us_verify_inc",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "provision",
+            "purpose": "contact_verification",
+            "count": 1
+          }
+        ]
+      },
+      "task_success": {"japan": true, "us": true},
+      "relations": [
+        {"left": "japan", "right": "us", "label": "incomparable"}
+      ],
+      "frontier": ["japan", "us"]
+    },
+    "B09_kr_entity_us_processing": {
+      "plans": {
+        "foreign_processing": ["ocr_in_us_region"],
+        "domestic": ["ocr_in_kr"]
+      },
+      "events": {
+        "foreign_processing": [
+          {
+            "data_atom": "invoice_image",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_finance_controller",
+            "importer_entity": "kr_cloud_vendor",
+            "importer_entity_country": "KR",
+            "processing_country": "US",
+            "transfer_mode": "delegated_processing",
+            "purpose": "invoice_ocr",
+            "count": 1
+          }
+        ],
+        "domestic": []
+      },
+      "task_success": {"foreign_processing": true, "domestic": true},
+      "relations": [
+        {"left": "domestic", "right": "foreign_processing", "label": "less"}
+      ],
+      "frontier": ["domestic"]
+    },
+    "B10_us_entity_kr_processing": {
+      "plans": {
+        "foreign_entity": ["sign_with_us_entity"],
+        "domestic": ["sign_with_kr_entity"]
+      },
+      "events": {
+        "foreign_entity": [
+          {
+            "data_atom": "document",
+            "data_subject": "employee_1",
+            "exporter_entity": "kr_hr_controller",
+            "importer_entity": "us_esign_inc",
+            "importer_entity_country": "US",
+            "processing_country": "KR",
+            "transfer_mode": "provision",
+            "purpose": "electronic_signature",
+            "count": 1
+          },
+          {
+            "data_atom": "signer_email",
+            "data_subject": "employee_1",
+            "exporter_entity": "kr_hr_controller",
+            "importer_entity": "us_esign_inc",
+            "importer_entity_country": "US",
+            "processing_country": "KR",
+            "transfer_mode": "provision",
+            "purpose": "electronic_signature",
+            "count": 1
+          }
+        ],
+        "domestic": []
+      },
+      "task_success": {"foreign_entity": true, "domestic": true},
+      "relations": [
+        {"left": "domestic", "right": "foreign_entity", "label": "less"}
+      ],
+      "frontier": ["domestic"]
+    },
+    "B11_package_recipient_incomparability": {
+      "plans": {
+        "separate_jp": ["book_jp_flight", "book_jp_hotel"],
+        "us_broker": ["book_us_package"]
+      },
+      "events": {
+        "separate_jp": [
+          {
+            "data_atom": "name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_airline",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_airline",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "jp_hotel",
+            "importer_entity_country": "JP",
+            "processing_country": "JP",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          }
+        ],
+        "us_broker": [
+          {
+            "data_atom": "name",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "us_package_broker",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "traveler_1",
+            "exporter_entity": "kr_agent_controller",
+            "importer_entity": "us_package_broker",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "provision",
+            "purpose": "package_booking",
+            "count": 1
+          }
+        ]
+      },
+      "task_success": {"separate_jp": true, "us_broker": true},
+      "relations": [
+        {"left": "us_broker", "right": "separate_jp", "label": "incomparable"}
+      ],
+      "frontier": ["separate_jp", "us_broker"]
+    },
+    "B12_refund_outcome_contract": {
+      "plans": {
+        "complete": ["settle_us_refund", "mark_local_after_settlement"],
+        "false_counterplan": ["mark_local_only"]
+      },
+      "events": {
+        "complete": [
+          {
+            "data_atom": "order_id",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_retail_controller",
+            "importer_entity": "us_payment_processor",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "provision",
+            "purpose": "payment_refund",
+            "count": 1
+          },
+          {
+            "data_atom": "email",
+            "data_subject": "customer_1",
+            "exporter_entity": "kr_retail_controller",
+            "importer_entity": "us_payment_processor",
+            "importer_entity_country": "US",
+            "processing_country": "US",
+            "transfer_mode": "provision",
+            "purpose": "payment_refund",
+            "count": 1
+          }
+        ],
+        "false_counterplan": []
+      },
+      "task_success": {"complete": true, "false_counterplan": false},
+      "relations": [],
+      "frontier": ["complete"]
+    }
+  }
+}

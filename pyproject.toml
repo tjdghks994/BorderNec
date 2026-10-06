@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bordernec"
+version = "0.1.0"
+description = "Same-result strict-subset witness search for cross-border observation minimization"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+bordernec = "bordernec.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

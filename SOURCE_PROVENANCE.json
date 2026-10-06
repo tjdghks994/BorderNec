@@ -1,0 +1,53 @@
+{
+  "source_sha256": {
+    "src/bordernec/schema.py": "6f43bd59cc37db5752a55dfaf4e7776c5956d1dca520e06b2438e94808a58dcc",
+    "src/bordernec/semantics.py": "61f9a6bdba417b7f2085e580ba75350bff85b618848b0734f3eb4d96c8c69f29",
+    "src/bordernec/planner.py": "1a4917c98a0c3bc54df0c92097a5bfd7bbb18467776497faec1e3c2b66280628",
+    "src/bordernec/local_model.py": "219cc3c26365c5c3a06ff9cf4a0f2dee201c87a63c60d0867f7cc6d68128a756",
+    "benchmarks/pilot_12.json": "1c086ebfe5b62dfa79bbeef86fa3192aa82fb7f7cca6a24a979e1a3a4a0393b8",
+    "benchmarks/pilot_12_golden.json": "477a935afd48f45a85634008649fe1383aef14ffeaf93861a7e355181301d48d"
+  },
+  "scope": "Algorithm-only extraction from the BorderNec research implementation.",
+  "changes": [
+    "Retain the registered full observation semantics and bounded BFS enumeration.",
+    "Retain plan and stepwise strict-subset descent, seeded action aliases, and budget accounting.",
+    "Omit comparison methods, experimental metrics, model-specific runtimes, and source benchmark adapters.",
+    "Keep incomplete stepwise proposals for rejection feedback and include removed observations in accepted transitions.",
+    "Support result-signature classes in exact frontier and witness lookup.",
+    "Add a small CLI, command backend integration, controlled examples, and focused tests."
+  ],
+  "validation": {
+    "date": "2026-10-06",
+    "unit_and_integration_tests": 30,
+    "python_versions": [
+      "3.13.15",
+      "3.14.7"
+    ],
+    "original_release_comparison": {
+      "controlled_tasks": 12,
+      "successful_plans": 25,
+      "search_runs": 120,
+      "generation_modes": [
+        "plan",
+        "stepwise"
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "call_budget": 5,
+      "matched": [
+        "bounded enumeration",
+        "observation sets",
+        "exact frontier",
+        "incumbent prefixes",
+        "acceptance decisions",
+        "call accounting"
+      ]
+    },
+    "scope": "Controlled algorithm checks and local installation; no manuscript GPU experiment was rerun."
+  }
+}
