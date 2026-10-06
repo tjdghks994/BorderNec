@@ -1,7 +1,5 @@
 # BorderNec
 
-[한국어 안내](README.ko.md)
-
 BorderNec replaces a successful tool plan when a verified alternative produces the same task result and exposes a strict subset of its foreign observer–personal-data relationships.
 
 ```text
@@ -106,7 +104,7 @@ The JSON registry supplies grounded actions, preconditions, effects, data bindin
 
 Every accepted replacement preserves the verified result and removes observations while adding none. Bounded search can finish before finding a globally minimal plan. Exact enumeration establishes the frontier of the registered bounded plan space. Both depend on correct tool registrations and result verification. The release measures registered foreign observations and provides no measurements from foreign service endpoints or legal authorization decisions.
 
-## Files and source provenance
+## Files
 
 | Location | Contents |
 | --- | --- |
@@ -116,9 +114,8 @@ Every accepted replacement preserves the verified result and removes observation
 | `src/bordernec/schema.py` | Registered task and plan schema |
 | `examples/` | 12 controlled tasks, golden expectations, scripted generator, result-registry format |
 | `tests/` | Golden validation, witness invariants, budget accounting, CLI integration |
-| `SOURCE_PROVENANCE.json` | Original source hashes and extraction changes |
 
-The source hashes identify the research implementation used for extraction. The release preserves its observation identity, bounded action semantics, seeded presentation, and strict-subset acceptance. Result-class handling also applies to exact pruning, and incomplete stepwise proposals remain in the audit. The complete algorithm can be checked with the included examples and tests without downloading a model or an external dataset.
+The complete algorithm can be checked with the included examples and tests without downloading a model or an external dataset.
 
 ## License
 
